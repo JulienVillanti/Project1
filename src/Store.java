@@ -10,6 +10,7 @@ public class Store {
         System.out.println("Welcome to Pargol Computer Store!");
         int maxComputers = 0;
         final String password = "password";
+        int inputCount = 0;
 
         while (maxComputers < 1) {
             System.out.println("Please enter the maximum amount of computers your store can contain: ");
@@ -33,27 +34,35 @@ public class Store {
             switch (choiceMenu) {
                 //careful as not entering the number first shows an error, at the password prompt, to fix
                 case 1:
-                    int inputCount = 0;
-                    System.out.println("Please enter your password: ");
-                    String userPassword = kb.next();
+                    String userPassword;
+                    do {
+                        System.out.println("Please enter your password: " + "You have " + (3 - inputCount) + " tries remaining.");
+                        userPassword = kb.next();
+                        inputCount++;
+                    } while (inputCount < 3);
                     if (userPassword.equals(password)) {
                         System.out.println("How many computers would you like to add?");
                         int numOfComputers = kb.nextInt();
+                        if (numOfComputers > inventory.length){
 
-                    } else if (!userPassword.equals(password)) {
+                        }
+
+
+                    } else {
                         System.out.println("wrong password, please try again!");
                         inputCount++;
-                        if (inputCount > 3) {
+                        if (inputCount >= 3) {
                             System.out.println("You have no more tries, back to the main menu");
                             break;
-                    }
+                        }
 
                     }
-
+                    break;
 
             }
-        } while (true);
 
+
+        } while (true);
 
     }
 }
